@@ -1,9 +1,9 @@
-package parser.entity;
+package parser;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static parser.util.ParserUtil.templateHeaderBody;
+import static parser.Helper.templateHeaderBody;
 
-public class HeaderPart {
+class HeaderPart {
 
     private final String template;
     private final String name;
@@ -31,7 +31,7 @@ public class HeaderPart {
         return data;
     }
 
-    public static class Builder {
+    static class Builder {
 
         private String template = templateHeaderBody;
         private String name;

@@ -1,15 +1,14 @@
-package parser.entity;
+package parser;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
 
 /**
- *
- *
  * @author nickdale
  * @version 1.0
  */
@@ -36,7 +35,7 @@ public class ConvertedFile {
     }
 
     public List<File> getAttachments() {
-        return attachments;
+        return ofNullable(attachments).orElseGet(ArrayList::new);
     }
 
     public void setAttachments(List<File> attachments) {

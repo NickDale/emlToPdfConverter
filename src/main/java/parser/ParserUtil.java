@@ -1,4 +1,4 @@
-package parser.entity;
+package parser;
 
 import com.lowagie.text.DocumentException;
 import org.apache.tika.mime.MimeTypeException;
@@ -24,14 +24,14 @@ import static java.util.Optional.ofNullable;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static parser.util.ParserUtil.DEFAULT_HTML_NAME;
-import static parser.util.ParserUtil.DEFAULT_PDF_NAME;
-import static parser.util.ParserUtil.EMAIL_HEADER_ID;
-import static parser.util.ParserUtil.HEADER_TEMPLATE_CONTAINER;
-import static parser.util.ParserUtil.TEMP_DIR;
-import static parser.util.ParserUtil.UNKNOWN;
-import static parser.util.ParserUtil.readTemplate;
-import static parser.util.ParserUtil.writeToFile;
+import static parser.Helper.DEFAULT_HTML_NAME;
+import static parser.Helper.DEFAULT_PDF_NAME;
+import static parser.Helper.EMAIL_HEADER_ID;
+import static parser.Helper.HEADER_TEMPLATE_CONTAINER;
+import static parser.Helper.TEMP_DIR;
+import static parser.Helper.UNKNOWN;
+import static parser.Helper.readTemplate;
+import static parser.Helper.writeToFile;
 
 /**
  * Convert eml to HTML and PDF
@@ -41,7 +41,7 @@ import static parser.util.ParserUtil.writeToFile;
  * @author nickdale
  * @version 1.0
  */
-public class Parser {
+public class ParserUtil {
 
     private final MimeMessageParser messageParser;
     private final boolean downloadAttachments;
@@ -49,16 +49,16 @@ public class Parser {
     private final ConvertedFile convertedFile;
     private final boolean addEmailHeaders;
 
-    public Parser(MimeMessageParser messageParser) {
-        this(messageParser, Boolean.FALSE, Boolean.FALSE);
+    public ParserUtil(String emailFilePath) throws Exception {
+        this(emailFilePath, Boolean.FALSE, Boolean.FALSE);
     }
 
-    public Parser(MimeMessageParser messageParser, boolean addEmailHeadersToPdf) {
-        this(messageParser, Boolean.FALSE, addEmailHeadersToPdf);
+    public ParserUtil(String emailFilePath, boolean addEmailHeadersToPdf) throws Exception {
+        this(emailFilePath, Boolean.FALSE, addEmailHeadersToPdf);
     }
 
-    public Parser(MimeMessageParser messageParser, boolean downloadAttachments, boolean addEmailHeadersToPdf) {
-        this.messageParser = messageParser;
+    public ParserUtil(String emailFilePath, boolean downloadAttachments, boolean addEmailHeadersToPdf) throws Exception {
+        this.messageParser = MimeMessageParser.instance(emailFilePath);
         this.downloadAttachments = downloadAttachments;
         this.addEmailHeaders = addEmailHeadersToPdf;
         this.bodyBuilder = new StringBuilder();

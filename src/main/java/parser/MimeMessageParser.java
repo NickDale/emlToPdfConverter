@@ -1,4 +1,4 @@
-package parser.entity;
+package parser;
 
 import org.simplejavamail.converter.EmailConverter;
 
@@ -17,14 +17,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.nonNull;
 import static java.util.Optional.ofNullable;
 import static javax.print.DocFlavor.BYTE_ARRAY.TEXT_PLAIN_UTF_8;
-import static parser.util.ParserUtil.DATE_FORMATTER;
-import static parser.util.ParserUtil.HEADER_PARAM_DATE;
-import static parser.util.ParserUtil.HEADER_PARAM_FROM;
-import static parser.util.ParserUtil.HEADER_PARAM_SUBJECT;
-import static parser.util.ParserUtil.HEADER_PARAM_TO;
-import static parser.util.ParserUtil.UNKNOWN;
+import static parser.Helper.DATE_FORMATTER;
+import static parser.Helper.HEADER_PARAM_DATE;
+import static parser.Helper.HEADER_PARAM_FROM;
+import static parser.Helper.HEADER_PARAM_SUBJECT;
+import static parser.Helper.HEADER_PARAM_TO;
+import static parser.Helper.UNKNOWN;
 
-public class MimeMessageParser {
+class MimeMessageParser {
 
     public static final String FILE_EXTENSION_MSG = ".msg";
     private final MimeMessage mimeMessage;

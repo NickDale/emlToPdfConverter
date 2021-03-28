@@ -1,7 +1,6 @@
-package parser.util;
+package parser;
 
 import org.apache.commons.io.IOUtils;
-import parser.entity.Parser;
 import parser.interfaces.Replacer;
 
 import java.io.File;
@@ -19,7 +18,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.time.LocalDate.now;
 import static java.util.Objects.isNull;
 
-public class ParserUtil {
+public class Helper {
 
     public static final String HTML_WRAPPER_TEMPLATE = "<!DOCTYPE html><html><head><style>body{font-size: 0.5cm;}</style><meta charset=\"%s\"><title>title</title></head><body>%s</body></html>";
     public static final Pattern HTML_META_CHARSET_REGEX = Pattern.compile("(<meta(?!\\s*(?:name|value)\\s*=)[^>]*?charset\\s*=[\\s\"']*)([^\\s\"'/>]*)", Pattern.DOTALL);
@@ -61,7 +60,7 @@ public class ParserUtil {
      * @throws IOException Template file is not found
      */
     public static String readTemplate(String templateName) throws IOException {
-        URL headerResource = Parser.class.getClassLoader().getResource(templateName);
+        URL headerResource = ParserUtil.class.getClassLoader().getResource(templateName);
         if (isNull(headerResource)) {
             throw new FileNotFoundException("Header template is not found");
         }

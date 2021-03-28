@@ -1,4 +1,4 @@
-package parser.entity;
+package parser;
 
 import com.sun.mail.util.BASE64DecoderStream;
 import org.apache.commons.io.IOUtils;
@@ -23,17 +23,17 @@ import static java.util.Optional.ofNullable;
 import static javax.print.DocFlavor.CHAR_ARRAY.TEXT_PLAIN;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.tika.mime.MediaType.TEXT_HTML;
-import static parser.util.ParserUtil.CHARSET;
-import static parser.util.ParserUtil.CONTENT_ID;
-import static parser.util.ParserUtil.HTML_META_CHARSET_REGEX;
-import static parser.util.ParserUtil.HTML_WRAPPER_TEMPLATE;
-import static parser.util.ParserUtil.IMAGE_TYPE;
-import static parser.util.ParserUtil.IMG_CID_PLAIN_REGEX;
-import static parser.util.ParserUtil.IMG_CID_REGEX;
-import static parser.util.ParserUtil.MULTIPART_TYPE;
-import static parser.util.ParserUtil.replace;
+import static parser.Helper.CHARSET;
+import static parser.Helper.CONTENT_ID;
+import static parser.Helper.HTML_META_CHARSET_REGEX;
+import static parser.Helper.HTML_WRAPPER_TEMPLATE;
+import static parser.Helper.IMAGE_TYPE;
+import static parser.Helper.IMG_CID_PLAIN_REGEX;
+import static parser.Helper.IMG_CID_REGEX;
+import static parser.Helper.MULTIPART_TYPE;
+import static parser.Helper.replace;
 
-public class MimeMessageObject {
+class MimeMessageObject {
 
     private String entry;
     private ContentType contentType;
