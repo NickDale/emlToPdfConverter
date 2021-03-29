@@ -13,6 +13,7 @@ import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ import static parser.Helper.writeToFile;
  * If you want you can download the email attachments to and add header to the generated pdf file (for example: sender, recipients, subject)
  *
  * @author nickdale
- * @version 1.0
+ * @version 1.0.2
  */
 public class ParserUtil {
 
@@ -48,6 +49,19 @@ public class ParserUtil {
     private final StringBuilder bodyBuilder;
     private final ConvertedFile convertedFile;
     private final boolean addEmailHeaders;
+
+
+    public ParserUtil(byte[] email) throws Exception {
+        this(email, Boolean.FALSE, Boolean.FALSE);
+    }
+
+    public ParserUtil(byte[] email, boolean addEmailHeadersToPdf) throws Exception {
+        this(email, Boolean.FALSE, addEmailHeadersToPdf);
+    }
+
+    public ParserUtil(byte[] email, boolean downloadAttachments, boolean addEmailHeadersToPdf) throws Exception {
+        this(MimeMessageParser.instance(email), downloadAttachments, addEmailHeadersToPdf);
+    }
 
     public ParserUtil(String emailFilePath) throws Exception {
         this(emailFilePath, Boolean.FALSE, Boolean.FALSE);
@@ -58,7 +72,23 @@ public class ParserUtil {
     }
 
     public ParserUtil(String emailFilePath, boolean downloadAttachments, boolean addEmailHeadersToPdf) throws Exception {
-        this.messageParser = MimeMessageParser.instance(emailFilePath);
+        this(MimeMessageParser.instance(emailFilePath), downloadAttachments, addEmailHeadersToPdf);
+    }
+
+    public ParserUtil(InputStream emailInputStream) throws Exception {
+        this(emailInputStream, Boolean.FALSE, Boolean.FALSE);
+    }
+
+    public ParserUtil(InputStream emailInputStream, boolean addEmailHeadersToPdf) throws Exception {
+        this(emailInputStream, Boolean.FALSE, addEmailHeadersToPdf);
+    }
+
+    public ParserUtil(InputStream emailInputStream, boolean downloadAttachments, boolean addEmailHeadersToPdf) throws Exception {
+        this(MimeMessageParser.instance(emailInputStream), downloadAttachments, addEmailHeadersToPdf);
+    }
+
+    private ParserUtil(MimeMessageParser messageParser, boolean downloadAttachments, boolean addEmailHeadersToPdf) {
+        this.messageParser = messageParser;
         this.downloadAttachments = downloadAttachments;
         this.addEmailHeaders = addEmailHeadersToPdf;
         this.bodyBuilder = new StringBuilder();

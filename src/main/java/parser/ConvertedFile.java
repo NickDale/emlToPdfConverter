@@ -7,10 +7,9 @@ import java.util.List;
 import static java.util.Optional.ofNullable;
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 
-
 /**
  * @author nickdale
- * @version 1.0
+ * @version 1.0.2
  */
 public class ConvertedFile {
 

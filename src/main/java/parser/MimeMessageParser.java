@@ -35,12 +35,20 @@ class MimeMessageParser {
         this.mimeMessageObject = new MimeMessageObject(new ContentType(TEXT_PLAIN_UTF_8.toString()), mimeMessage);
     }
 
+    public static MimeMessageParser instance(InputStream emailInputStream) throws Exception {
+        return new MimeMessageParser(emailInputStream);
+    }
+
     public static MimeMessageParser instance(String emailFilePath) throws Exception {
         if (emailFilePath.toLowerCase().endsWith(FILE_EXTENSION_MSG)) {
             String emlString = EmailConverter.outlookMsgToEML(new FileInputStream(emailFilePath));
-            return new MimeMessageParser(new ByteArrayInputStream(emlString.getBytes(UTF_8)));
+            return instance(emlString.getBytes(UTF_8));
         }
         return new MimeMessageParser(new FileInputStream(emailFilePath));
+    }
+
+    public static MimeMessageParser instance(byte[] email) throws Exception {
+        return new MimeMessageParser(new ByteArrayInputStream(email));
     }
 
     public MimeMessage getMimeMessage() {
